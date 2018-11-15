@@ -1,20 +1,21 @@
+#!/usr/bin/env node
+
+
+// const chromix = require("chromix-too");
+// const lodash = require("lodash");
 const console = require("console");
 const express = require('express');
-const app = express();
-const port = 4038;
-const chromix = require("chromix-too");
-const sqparse = require("shell-quote").parse;
-const lodash = require("lodash");
 const child_process = require("child_process");
+const sqparse = require("shell-quote").parse;
+const app = express();
 
-// npm install --save shell-quote
-// npm install --save express
-// npm install --save chromix-too
-//
-app.get('/', (req, res) => res.send('Hello World!'));
+const host = "localhost";
+const port = 4038;
 
-app.listen(port, "localhost", () => console.log(`Example app listening on port ${port}!`));
-// localhost:
+app.get('/', (req, res) => res.send('Hello Chelf'));
+
+app.listen(port, host, () => console.log(`Chelf listening on ${host}:${port}!`));
+
 // localhost:4038/do?command=echo&args=hello+world&env=DISPLAY%3d=%3a1&inherit_env=true
 app.get("/_spawn/", (req, res) => {
     let result = "";
@@ -64,21 +65,21 @@ app.get("/find-root/", (req, res) => {
     let p = child_process.spawn(command, args);
     var counter = 0;
     p.on("exit", function(code) {
-        console.log("process exit");
+        // console.log("process exit");
         res.end();
     });
     p.on("error", function(code) {
-        console.log("process error");
+        // console.log("process error");
         res.end();
     });
     res.on("close", function(data) {
-        console.log("response close");
+        // console.log("response close");
         p.kill();
     });
     p.stdout.on("data", function(data) {
         res.write(data);
         ++counter;
-        console.log(counter);
+        // console.log(counter);
         // process.stdout.write(data);
     });
     p.stdout.on("end", function(){
@@ -93,24 +94,11 @@ app.get("/find-root/", (req, res) => {
     });
 });
 
-/*
-localhost:4038/spawn?command=echo&args=hello+world
-localhost:4038/spawn?command=emacs
-localhost:4038/spawn?command=gedit
-localhost:4038/spawn?command=libreoffice&args=--writer
-localhost:4038/spawn?command=libreoffice&args=--calc
-localhost:4038/spawn?command=nautilus&args=~
-localhost:4038/spawn?command=nautilus&args=~
-localhost:4038/spawn?command=echo&args=hello+world&env=DISPLAY%3d%3a1&inherit_env=true
-localhost:4038/spawn?command=echo&args=hello+world&env=DISPLAY%3d%3a1&inherit_env=false
-*/
-
 app.get("/spawn/", (req, res) => {
     let result = "";
     let command = req.query.command;
     let args = sqparse(req.query.args || "");
     let options = {};
-    // let inherit_env = "inherit_env" in req.query ? req.query.inherit_env === "false" : true;
     let inherit_env = req.query.inherit_env != "false";
     let env = "env" in req.query ? options.env = sqparse(req.query.env).reduce((object,envstr)=>{
         let n = envstr.indexOf("=");

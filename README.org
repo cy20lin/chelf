@@ -1,0 +1,75 @@
+#+TITLE: Chelf
+#+AUTHOR: Chien-Yu Lin
+
+* Introduction
+
+  An elf that connect browsers and executables.
+
+  Chelf is a command line program, hosting as an http server.
+
+  Chelf provide http interfaces to spawn and manage executables in the host.
+
+  Now, you're being able to launch applications from bookmarks in your browser,
+  with the help of chelf.
+
+  Just simply add the program you want to spawn in the url specified below,
+  one click and have your application started.
+
+  Enjoy :P
+
+* The story
+
+  While I'm playing around with my chromebook, I installed linux applicaitons
+  in chroot with the help of Crouton. It is good, but not good enough. I really
+  want to pin my linux application on the shelf of ChromeOS, so that I don't have
+  to type so many commands, only to start a application, every time. It is really
+  annoying, and this is the thing I finally come up with.
+
+  Oh!! It feels so good to be able to pin applications on bookmarks.
+
+* Installation
+
+  #+BEGIN_SRC bash
+    npm install -g git+https://github.com/cy20lin/chelf
+  #+END_SRC
+
+* Usage
+
+** Command line
+
+   #+BEGIN_SRC bash
+     # start chelf server on localhost with default port 4038
+     chelf
+   #+END_SRC
+
+** Http APIs
+
+*** Spawn process
+
+    GET /spawn
+
+    | Parameter    | Description                                                  |
+    | command      | The command to execute                                       |
+    | args         | Arguments to be passed to command                            |
+    | env          | Enviroment key value pairs                                   |
+    | inherit_env  | Inherit the enviroment variables as chelf                    |
+    | cwd          | Current working directory of the child process               |
+    | argv0        | Explicity set the value of argv[0] sent to the child process |
+
+    Test using =wget=
+
+    #+BEGIN_SRC url
+  wget http://localhost:4038/spawn?command=echo&args=hello+world
+  wget http://localhost:4038/spawn?command=printenv&env=A=a1+B="b1+b2"+"C=c1+c2+c3"
+  wget http://localhost:4038/spawn?command=printenv&args=A&env=A=a
+  wget http://localhost:4038/spawn?command=printenv&inherit_env=false
+  wget http://localhost:4038/spawn?command=emacs
+  wget http://localhost:4038/spawn?command=gedit
+  wget http://localhost:4038/spawn?command=libreoffice&args=--writer
+  wget http://localhost:4038/spawn?command=libreoffice&args=--calc
+  wget http://localhost:4038/spawn?command=nautilus&args=~
+    #+END_SRC
+
+* License
+
+  Chelf is licensed under MIT license

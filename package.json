@@ -1,17 +1,21 @@
 {
-  "name": "chelf",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "ChienYu Lin",
-  "license": "ISC",
-  "dependencies": {
-    "chromix-too": "0.0.15",
-    "express": "^4.16.4",
-    "lodash": "^4.17.11",
-    "shell-quote": "^1.6.1"
-  }
+    "name": "chelf",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "ChienYu Lin",
+    "license": "ISC",
+    "dependencies": {
+        "chromix-too": "0.0.15",
+        "commander": "^2.19.0",
+        "express": "^4.16.4",
+        "lodash": "^4.17.11",
+        "shell-quote": "^1.6.1"
+    },
+    "bin":{
+        "chelf":"./index.js"
+    }
 }
