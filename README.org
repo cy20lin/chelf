@@ -56,19 +56,17 @@
     | cwd          | Current working directory of the child process               |
     | argv0        | Explicity set the value of argv[0] sent to the child process |
 
-    Test using =wget=
+    Examples:
 
-    #+BEGIN_SRC url
-  wget http://localhost:4038/spawn?command=echo&args=hello+world
-  wget http://localhost:4038/spawn?command=printenv&env=A=a1+B="b1+b2"+"C=c1+c2+c3"
-  wget http://localhost:4038/spawn?command=printenv&args=A&env=A=a
-  wget http://localhost:4038/spawn?command=printenv&inherit_env=false
-  wget http://localhost:4038/spawn?command=emacs
-  wget http://localhost:4038/spawn?command=gedit
-  wget http://localhost:4038/spawn?command=libreoffice&args=--writer
-  wget http://localhost:4038/spawn?command=libreoffice&args=--calc
-  wget http://localhost:4038/spawn?command=nautilus&args=~
-    #+END_SRC
+    - [[http://localhost:4038/spawn?command=echo&args=hello+world]]
+    - [[http://localhost:4038/spawn?command=printenv&env=A=a1+B="b1+b2"+"C=c1+c2+c3"]]
+    - [[http://localhost:4038/spawn?command=printenv&args=A&env=A=a]]
+    - [[http://localhost:4038/spawn?command=printenv&inherit_env=false]]
+    - [[http://localhost:4038/spawn?command=emacs]]
+    - [[http://localhost:4038/spawn?command=gedit]]
+    - [[http://localhost:4038/spawn?command=libreoffice&args=--writer]]
+    - [[http://localhost:4038/spawn?command=libreoffice&args=--calc]]
+    - [[http://localhost:4038/spawn?command=nautilus&args=~]]
 
 * License
 
